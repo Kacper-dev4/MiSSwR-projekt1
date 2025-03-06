@@ -1,0 +1,6 @@
+img = imread("map.png");
+img = imbinarize(img);
+
+out
+
+imshow(ouy)

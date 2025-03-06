@@ -1,0 +1,37 @@
+function [out] = dodajPrzeszkody(img)
+
+out = uint8(img);
+ile = input("Ile chcesz wprowadzic przeszkod? ");
+
+for i=1:ile
+    ksztalt = input("Jaki ksztalt ma miec przeszkoda? \n 1 - kwadrat, 2 - trojkat, 3 - kolo ");
+    
+    switch ksztalt
+
+        case 1
+            a = input("Jaki ma być bok kwadratu? "); 
+            x0 = input("Jaka ma byc wspolrzedna x lewgo gornego rogu kwadratu? "); 
+            y0 = input("Jaka ma byc wspolrzedna y lewgo gornego rogu kwadratu? "); 
+           
+            out = insertShape(out,'filled-rectangle',[x0,y0,a,a],'Color', 'black', 'Opacity', 1);
+            out = rgb2gray(out);
+        case 2
+            bok = input("Jaki ma być bok trojkata rownoramiennego? ");
+
+            filled-polygon
+        case 3
+
+            r = input("Jaki ma byc promien kola? ");  
+            x0 = input("Jaka ma byc wspolrzedna x srodka kola? "); 
+            y0 = input("Jaka ma byc wspolrzedna y srodka kola? ");  
+            
+            out = insertShape(out, 'FilledCircle', [x0, y0, r], 'Color', 'black', 'Opacity', 1); 
+            out = rgb2gray(out);
+            
+           
+    end
+
+end
+
+end
+
