@@ -57,7 +57,8 @@ for i=1:ile
             
             out = insertShape(out, 'FilledCircle', [x0, y0, r], 'Color', 'black', 'Opacity', 1); 
             out = rgb2gray(out);
-            
+        otherwise
+            disp('Podano bledny numer')
            
     end
 

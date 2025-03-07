@@ -1,4 +1,4 @@
-img = imread("dywan.png");
+function [] = PRM(img,start,goal)
 
 if ndims(img) == 3
 img = rgb2gray(img);
@@ -8,7 +8,7 @@ img = imbinarize(img);
 end
 img = ~img;
 map = occupancyMap(img);
-occGrid = map;
+
 
 ss = stateSpaceSE2;
 ss.StateBounds = [map.XWorldLimits; map.YWorldLimits; [-pi pi]];
@@ -21,16 +21,6 @@ graph = graphData(planner);
 
 edges = table2array(graph.Edges);
 nodes = table2array(graph.Nodes);
-
-%start = [12.0,68.0,0]; % Zygzak
-%goal = [57.0,44.0,0];
-
-%start = [28.0,20.0,0]; % N
-%goal = [70.0,78.0,0];
-
-start = [34.0,168.0,0]; % Dywan
-goal = [174.0,10.0,0];
-
 
 figure
 show(sv.Map)
@@ -56,3 +46,8 @@ else
     disp("Path not found")
 end
 hold off
+
+
+
+end
+

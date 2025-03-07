@@ -1,6 +1,11 @@
 img = imread("dywan.png");
+
+if ndims(img) == 3
 img = rgb2gray(img);
+end
+if ~islogical(img)
 img = imbinarize(img);
+end
 img = ~img;
 map = occupancyMap(img);
 occGrid = map;
@@ -36,7 +41,7 @@ planner = plannerRRT(ss,stateValidator);
 planner.MaxConnectionDistance = 10.0;
 planner.MaxIterations = 300000;
 
-planner.GoalReachedFcn = @exampleHelperCheckIfGoal;
+%planner.GoalReachedFcn = @exampleHelperCheckIfGoal;
 
 rng default
 
@@ -60,47 +65,47 @@ plot(start(1),start(2),'ro')
 plot(goal(1),goal(2),'mo')
 hold off
 
-% Only making left turns
-goLeft = true;
-
-% Create the state space
-ssCustom = ExampleHelperStateSpaceOneSidedDubins(bounds,goLeft);
-ssCustom.MinTurningRadius = 0.4;
-
-
-stateValidator2 = validatorOccupancyMap(ssCustom); 
-stateValidator2.Map = occGrid;
-stateValidator2.ValidationDistance = 0.05;
-
-planner = plannerRRT(ssCustom,stateValidator2);
-planner.MaxConnectionDistance = 2.0;
-planner.MaxIterations = 30000;
-planner.GoalReachedFcn = @exampleHelperCheckIfGoal;
-
-rng default
-[pthObj2,solnInfo] = plan(planner,start,goal);
-
-figure
-show(occGrid)
-
-hold on
-
-% Show the search tree.
-plot(solnInfo.TreeData(:,1),solnInfo.TreeData(:,2),'.-');
-
-% Interpolate and plot path.
-pthObj2.interpolate(300)
-plot(pthObj2.States(:,1), pthObj2.States(:,2), 'r-', 'LineWidth', 2)
-
-% Show start and goal in grid map.
-plot(start(1), start(2), 'ro')
-plot(goal(1), goal(2), 'mo')
-hold off
-
-function isReached = exampleHelperCheckIfGoal(planner, goalState, newState)
-    isReached = false;
-    threshold = 0.1;
-    if planner.StateSpace.distance(newState, goalState) < threshold
-        isReached = true;
-    end
-end
+% % Only making left turns
+% goLeft = true;
+% 
+% % Create the state space
+% ssCustom = ExampleHelperStateSpaceOneSidedDubins(bounds,goLeft);
+% ssCustom.MinTurningRadius = 0.4;
+% 
+% 
+% stateValidator2 = validatorOccupancyMap(ssCustom); 
+% stateValidator2.Map = occGrid;
+% stateValidator2.ValidationDistance = 0.05;
+% 
+% planner = plannerRRT(ssCustom,stateValidator2);
+% planner.MaxConnectionDistance = 2.0;
+% planner.MaxIterations = 30000;
+% planner.GoalReachedFcn = @exampleHelperCheckIfGoal;
+% 
+% rng default
+% [pthObj2,solnInfo] = plan(planner,start,goal);
+% 
+% figure
+% show(occGrid)
+% 
+% hold on
+% 
+% % Show the search tree.
+% plot(solnInfo.TreeData(:,1),solnInfo.TreeData(:,2),'.-');
+% 
+% % Interpolate and plot path.
+% pthObj2.interpolate(300)
+% plot(pthObj2.States(:,1), pthObj2.States(:,2), 'r-', 'LineWidth', 2)
+% 
+% % Show start and goal in grid map.
+% plot(start(1), start(2), 'ro')
+% plot(goal(1), goal(2), 'mo')
+% hold off
+% 
+% function isReached = exampleHelperCheckIfGoal(planner, goalState, newState)
+%     isReached = false;
+%     threshold = 0.1;
+%     if planner.StateSpace.distance(newState, goalState) < threshold
+%         isReached = true;
+%     end
+% end
