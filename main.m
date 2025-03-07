@@ -12,7 +12,7 @@ clc
 
 
 
-jakiObraz = input("Jesli chcesz wybrac mape wpisz 1, jesli dodac wlasne przeszkody wybierz 2 ");
+jakiObraz = input("Jesli chcesz wybrac mape wpisz 1, jesli dodac wlasne przeszkody wybierz 2: ");
 
 switch jakiObraz
     case 1
@@ -23,19 +23,20 @@ switch jakiObraz
         in = imread('map.png');
         img = dodajPrzeszkody(in);
     otherwise
-        disp('Podano bledny numer')
+        error('Podano bledny numer')
+        
 
 end
 
-metoda = input("Ktora metode chcesz wybrac? \n RRT wpisz 1, PRM wpisz 2 ");
+metoda = input("Ktora metode chcesz wybrac? \n RRT wpisz 1, PRM wpisz 2: ");
  xs = input("Podaj wspolrzedna x punktu poczatkowego ");
  ys = input("Podaj wspolrzedna y punktu poczatkowego ");
  kierunekS = input("Podaj obrot punktu poczatkowego ");
  start = [xs,ys, kierunekS];
 
- xg = input("Podaj wspolrzedna x punktu koncowego ");
- yg = input("Podaj wspolrzedna y punktu koncowego ");
- kierunekG = input("Podaj obrot punktu  koncowego ");
+ xg = input("Podaj wspolrzedna x punktu koncowego: ");
+ yg = input("Podaj wspolrzedna y punktu koncowego: ");
+ kierunekG = input("Podaj obrot punktu  koncowego: ");
  goal = [xg,yg, kierunekG];
 
 switch metoda
