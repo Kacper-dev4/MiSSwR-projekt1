@@ -1,4 +1,4 @@
-function [] = PRM(img,start,goal)
+function [] = PRM(img,start,goal,maxNum)
 
 if ndims(img) == 3
 img = rgb2gray(img);
@@ -14,9 +14,9 @@ ss = stateSpaceSE2;
 ss.StateBounds = [map.XWorldLimits; map.YWorldLimits; [-pi pi]];
 
 sv = validatorOccupancyMap(ss,Map=map);
-sv.ValidationDistance = 0.01;
+sv.ValidationDistance = 0.05;
 
-planner = plannerPRM(ss,sv);
+planner = plannerPRM(ss,sv,'MaxNumNodes',maxNum);
 graph = graphData(planner);
 
 edges = table2array(graph.Edges);

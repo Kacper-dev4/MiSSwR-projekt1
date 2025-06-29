@@ -1,4 +1,4 @@
-function [] = RRT(img,start,goal,minTurn,maxConDistance,maxIterations)
+function [] = RRT(img,start,goal,minTurn,maxConDistance,maxIterations, maxNum)
 
 if ndims(img) == 3
 img = rgb2gray(img);
@@ -27,15 +27,17 @@ hold off
 bounds = [occGrid.XWorldLimits; occGrid.YWorldLimits; [-pi pi]];
 
 ss = stateSpaceDubins(bounds);
-ss.MinTurningRadius = minTurn;
+%ss.MinTurningRadius = minTurn;
 
 stateValidator = validatorOccupancyMap(ss); 
 stateValidator.Map = occGrid;
 stateValidator.ValidationDistance = 0.05;
 
+
 planner = plannerRRT(ss,stateValidator);
 planner.MaxConnectionDistance = maxConDistance;
 planner.MaxIterations = maxIterations;
+planner.MaxNumTreeNodes = maxNum;
 
 %planner.GoalReachedFcn = @exampleHelperCheckIfGoal;
 
